@@ -2,14 +2,18 @@ import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers, AnyAction } from 'redux';
 import type { LocaleState } from './locale';
 import localesReducer from './locale';
+import userReducer from './user';
+import { UserState } from './user';
 
 const rootReduce = combineReducers<
     {
         localesReducer: LocaleState;
+        userReducer: UserState
     },
     AnyAction
 >({
-    localesReducer
+    localesReducer,
+    userReducer
 });
 
 const store = configureStore({
