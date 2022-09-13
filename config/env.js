@@ -50,7 +50,6 @@ dotenvFiles.forEach(path => {
 // https://github.com/motdotla/dotenv-expand
 currentEnvFiles.forEach(dotenvFile => {
   if (fs.existsSync(dotenvFile)) {
-    console.log('hahahha1', dotenvFile)
     require('dotenv-expand')(
       require('dotenv').config({
         path: dotenvFile,
@@ -78,7 +77,6 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
-console.log(process.env, 'process')
 function getClientEnvironment(publicUrl) {
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
@@ -107,7 +105,8 @@ function getClientEnvironment(publicUrl) {
         // Whether or not react-refresh is enabled.
         // It is defined here so it is available in the webpackHotDevClient.
         FAST_REFRESH: process.env.FAST_REFRESH !== 'false',
-        BASE_API: process.env.BASE_API
+        BASE_API: process.env.BASE_API,
+        APP_NAME: process.env.APP_NAME,
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

@@ -1,7 +1,10 @@
 import { createSlice, CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 import { request } from '../utils/request';
+import storage from '../utils/Storage';
 import { useAppDispatch } from './hooks';
 
+// const dispatch = useAppDispatch();
 
 enum Reducers {
     FETECH_USER = 'FETECH_USER',
@@ -13,7 +16,11 @@ export enum UserStatus {
 
 export interface UserState {
     token?: string;
-    perms: string[]
+    perms: string[];
+    orgIdSet?: string[];
+    tokenType?: string;
+    userFullNameCn?: string;
+    userNo?: string;
 }
 
 type UserReducer = {
@@ -25,6 +32,21 @@ type UserReducer = {
         }
     >;
 };
+
+export async function afterLogin({ token,  userNo}: { token?: string; userNo?: string}) {
+    const [routerList] = await Promise.all([
+        request({
+            url: '/gateway/admin/userMenu',
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + token },
+            data: { userNo }
+        })
+    ]);
+    return {
+        routes: routerList
+    }
+}
+
 export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
     const response = await request({
         url: '/gateway/admin/signin',
@@ -34,32 +56,13 @@ export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
             userName: "superadmin",
         }
     });
-    // afterLogin();
-    // useAppDispatch()(afterLogin)
+    const { token, userNo } = response;
+    storage.set('access_token', token);
+    const perm = await afterLogin({ token, userNo });
     return {
-        token: 'wwwwwwwwwwwwwwwwww',
-        perms: ['22']
+        ...response,
+        ...perm
     };
-});
-export const afterLogin = createAsyncThunk<UserState>('users/after', async () => {
-    console.log(afterLogin, 'afterLogin')
-    const [userInfo, { perms, menus }] = await Promise.all([
-        request({
-            url: '/gateway/admin/account/info',
-            method: 'get'
-        })
-        ,
-        request({
-            url: '/gateway/admin/account/permmenu',
-            method: 'get'
-        })
-        
-    ]);
-    return {
-        perms,
-        menus,
-        userInfo
-    }
 });
 
 const userReducer = createSlice<UserState, UserReducer, 'user'>({
@@ -75,18 +78,10 @@ const userReducer = createSlice<UserState, UserReducer, 'user'>({
     extraReducers: (builder) => {
         builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
             return {
-                // routes: payload.routes
-                token: '222222222',
-                perms: ['']
+                ...payload
             };
         });
-        builder.addCase(afterLogin.fulfilled, (state, { payload }) => {
-            return {
-                // routes: payload.routes
-                token: '222',
-                perms: ['222222']
-            };
-        });
+       
     }
 });
 export const { FETECH_USER } = userReducer.actions;

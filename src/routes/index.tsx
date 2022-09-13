@@ -24,6 +24,7 @@ const defaultRouters: RouteObject[] = [
 ];
 
 export default function DynamicRouter() {
+	console.log(process.env, 'createStorage')
 	const user = useAppSelector((state) => state.userReducer);
   const { pathname, state } = useLocation();
 	const { token } = user;
