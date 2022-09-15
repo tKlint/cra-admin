@@ -105,9 +105,7 @@ export type BaseResponse<T = any> = Promise<Response<T>>;
 export const request = async <T = any>(config: AxiosRequestConfig, options: RequestOptions = {}): Promise<T> => {
   try {
     const { successMsg, errorMsg, permCode, isMock = false, isGetDataDirectly = true } = options;
-    // 如果当前是需要鉴权的接口 并且没有权限的话 则终止请求发起
-    // userStore()
-    if (permCode && !userStore.perms.includes(permCode)) {
+    if (permCode) {
       return $message.error('你没有访问该接口的权限，请联系管理员！');
     }
     const fullUrl = `${config.url}`;

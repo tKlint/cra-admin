@@ -8,6 +8,7 @@ export interface IProps extends RouteProps {
 
 const WrapperRouteComponent: React.FC<IProps> = (props) => {
 	const { auth, element } = props;
+	console.log(element, 'elementelementelement')
 	return auth ? <PrivateRoute {...props}/> : element as JSX.Element;
 }
 export default WrapperRouteComponent;

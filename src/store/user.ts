@@ -1,26 +1,22 @@
 import { createSlice, CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 import { request } from '../utils/request';
 import storage from '../utils/Storage';
-import { useAppDispatch } from './hooks';
-
-// const dispatch = useAppDispatch();
+import api from '../service';
+import { ItemType } from 'antd/lib/menu/hooks/useItems';
+import { generateMenus } from './generateRoutes';
 
 enum Reducers {
     FETECH_USER = 'FETECH_USER',
 }
 
-export enum UserStatus {
-  
-}
-
 export interface UserState {
     token?: string;
-    perms: string[];
     orgIdSet?: string[];
     tokenType?: string;
     userFullNameCn?: string;
     userNo?: string;
+    routes: API.RoutesResponse[];
+    menuItems?: ItemType[];
 }
 
 type UserReducer = {
@@ -33,17 +29,14 @@ type UserReducer = {
     >;
 };
 
-export async function afterLogin({ token,  userNo}: { token?: string; userNo?: string}) {
+export async function afterLoginApi({ token,  userNo}: { token?: string; userNo?: string}) {
     const [routerList] = await Promise.all([
-        request({
-            url: '/gateway/admin/userMenu',
-            method: 'POST',
-            headers: { 'Authorization': 'Bearer ' + token },
-            data: { userNo }
-        })
+        api.fetchUserRoute(),
     ]);
+    const menuItems = generateMenus((routerList as { data:  API.RoutesResponse[] }).data);
     return {
-        routes: routerList
+        routes: (routerList as { data:  API.RoutesResponse[] }).data,
+        menuItems
     }
 }
 
@@ -58,17 +51,30 @@ export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
     });
     const { token, userNo } = response;
     storage.set('access_token', token);
-    const perm = await afterLogin({ token, userNo });
+    storage.set('user_no', userNo);
+    const { routes, menuItems } = await afterLoginApi({ token, userNo });
     return {
         ...response,
-        ...perm
+        routes,
+        menuItems
+    };
+});
+
+export const afterLogin = createAsyncThunk<UserState>('user/after', async () => {
+    const { token, userNo } = userReducer.getInitialState();
+    const { routes, menuItems } = await afterLoginApi({ token, userNo });
+    return {
+        routes,
+        menuItems
     };
 });
 
 const userReducer = createSlice<UserState, UserReducer, 'user'>({
     name: 'user',
     initialState: {
-        perms: []
+        token: storage.get('access_token', ''),
+        userNo: storage.get('user_no', ''),
+        routes: []
     },
     reducers: {
         [Reducers.FETECH_USER]: (state, { payload, type }) => {
@@ -81,7 +87,10 @@ const userReducer = createSlice<UserState, UserReducer, 'user'>({
                 ...payload
             };
         });
-       
+        builder.addCase(afterLogin.fulfilled, (state, { payload }) => {
+            state.routes = payload.routes;
+            state.menuItems = payload.menuItems;
+        });
     }
 });
 export const { FETECH_USER } = userReducer.actions;

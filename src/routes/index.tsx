@@ -1,8 +1,10 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import { RouteObject, useLocation, useNavigate, useRoutes } from "react-router-dom";
 import WrapperRouteComponent from './WrapperRouteComponent';
-import { useAppSelector } from '../store/hooks';
-import storage from '../utils/Storage';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { afterLogin } from "../store/user";
+import { cloneDeep } from 'lodash';
+import { generateRoutes } from "../store/generateRoutes";
 
 const NotFound = React.lazy(() => import("../pages/404"));
 const Login = React.lazy(() => import("../pages/login"));
@@ -17,8 +19,11 @@ const defaultRouters: RouteObject[] = [
     path: "/",
     element: <WrapperRouteComponent auth={true} element={<Layout />}/>,
 		children: []
-  },
-	{
+  }
+];
+
+const notFoundPage = [
+  {
 		path: "*",
 		element: <WrapperRouteComponent auth={true} element={<NotFound />}/>
 	}
@@ -26,19 +31,32 @@ const defaultRouters: RouteObject[] = [
 
 export default function DynamicRouter() {
 	const user = useAppSelector((state) => state.userReducer);
+  const dispatch = useAppDispatch();
   const { pathname, state } = useLocation();
-	const { token } = user;
+	const { token, routes} = user;
 	const navigate = useNavigate();
+
   useEffect(() => {
     if (!token && pathname !== '/login') {
       return navigate({ pathname: 'login' }, { replace: true, state: { from: pathname } });
 		}
-		if (token && storage.get('access_token', '') && pathname === '/login') {
+		if (token && pathname === '/login') {
 			return navigate({ pathname: '/' });
 		}
-  }, [token, navigate, pathname, state]);
+    if (token && !routes?.length) {
+      dispatch(afterLogin());
+    }
+  }, [token, pathname, state]);
 
-  return <RenderRouter routerList={defaultRouters}/>;
+  const newRoutes = useMemo(() => {
+    const routesInstance = cloneDeep(defaultRouters);
+    const routesWithComponent = generateRoutes(routes);
+    const layoutRoute = routesInstance.find(item => item.path === '/')?.children;
+    layoutRoute?.push(...cloneDeep([...routesWithComponent]), ...notFoundPage);
+    return routesInstance;
+  }, [routes]);
+
+  return <RenderRouter routerList={newRoutes}/>;
 }
 
 
