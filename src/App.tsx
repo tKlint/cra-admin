@@ -14,7 +14,7 @@ import DynamicRouter from './routes';
 function App() {
   const { locale } = useAppSelector(store => store.localesReducer);
   const dispatch =  useAppDispatch();
-  console.log('app')
+  console.log('app update')
   /**
    * 获取地区语言配置
    * @returns Locale

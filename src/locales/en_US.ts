@@ -7,6 +7,8 @@ const enUS = {
     'app.date': 'Current time is: {ts, date, ::yyyyMMdd}',
     'app.no-access': 'Sorry, you don\'t have access to my application',
     'app.no-login': 'you need login',
-    'app.login-tip': 'go to login'
+    'app.login-tip': 'go to login',
+    'menu.about': 'about',
+    'menu.dashboard': 'dashboard',
 }
 export default enUS;

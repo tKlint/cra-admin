@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { afterLogin } from "../store/user";
 import { cloneDeep } from 'lodash';
 import { generateRoutes } from "../store/generateRoutes";
+import SuspendFallbackLoading from "../layout/SuspendFallbackLoading";
 
 const NotFound = React.lazy(() => import("../pages/404"));
 const Login = React.lazy(() => import("../pages/login"));
@@ -33,7 +34,7 @@ export default function DynamicRouter() {
 	const user = useAppSelector((state) => state.userReducer);
   const dispatch = useAppDispatch();
   const { pathname, state } = useLocation();
-	const { token, routes} = user;
+	const { token, routes, menuItems} = user;
 	const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,5 +63,5 @@ export default function DynamicRouter() {
 
 const RenderRouter: React.FC<{ routerList: RouteObject[]}> = ({ routerList }) => {
   const element = useRoutes(routerList);
-  return <Suspense fallback={<div>loading</div>}>{element}</Suspense>;
+  return <Suspense fallback={<SuspendFallbackLoading message="文件加载失败"/>}>{element}</Suspense>;
 };

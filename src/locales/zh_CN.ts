@@ -7,6 +7,8 @@ const zhCN = {
     'app.date': '当前时间是: {ts, date, ::yyyyMMdd}',
     'app.no-access': '抱歉, 您无权访问',
     'app.no-login': '未登录',
-    'app.login-tip': '去登录'
+    'app.login-tip': '去登录',
+    'menu.about': '关于',
+    'menu.dashboard': '仪表盘',
 }
 export default zhCN;

@@ -4,6 +4,7 @@ import storage from '../utils/Storage';
 import api from '../service';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { generateMenus } from './generateRoutes';
+import { MenuProps } from 'antd';
 
 enum Reducers {
     FETECH_USER = 'FETECH_USER',
@@ -16,7 +17,7 @@ export interface UserState {
     userFullNameCn?: string;
     userNo?: string;
     routes: API.RoutesResponse[];
-    menuItems?: ItemType[];
+    menuItems?: MenuProps['items'];
 }
 
 type UserReducer = {
@@ -65,7 +66,7 @@ export const afterLogin = createAsyncThunk<UserState>('user/after', async () => 
     const { routes, menuItems } = await afterLoginApi({ token, userNo });
     return {
         routes,
-        menuItems
+        menuItems: menuItems || []
     };
 });
 

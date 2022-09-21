@@ -1,6 +1,6 @@
+import { MenuProps } from 'antd';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import { IRoutes } from "../routes/typing";
 import WrapperRouteComponent from "../routes/WrapperRouteComponent";
 
@@ -24,7 +24,7 @@ export const generateRoutes = (menus: API.RoutesResponse[], parentPath = '') => 
 		return routeProps;
 	})
 }
-export const generateMenus = (menus: API.RoutesResponse[], parentPath = '', parentName = ''): ItemType[] => {
+export const generateMenus = (menus: API.RoutesResponse[], parentPath = '', parentName = ''): MenuProps['items'] => {
 	return menus.filter((item) => item.isShown)
 		.map((item) => {
 			const currentPath = `${parentPath}${item.router}`;
