@@ -3,7 +3,7 @@
 ## 技术栈
 
 - 编程语言：[TypeScript 4.x](https://www.typescriptlang.org/zh/) + [JavaScript](https://www.javascript.com/)
-- 构建工具：[Vite 2.x](https://www.webpackjs.com/)
+- 构建工具：[Webpack 5.x](https://www.webpackjs.com/)
 - 前端框架：[React 18.2.0](https://reactjs.org/)
 - 路由工具：[React-router-dom 6.x](https://github.com/remix-run/react-router#readme)
 - 状态管理：[Redux/toolkit 1.8.5](https://github.com/ReduxKit/ReduxKit/)
