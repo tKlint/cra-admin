@@ -13,7 +13,7 @@ import './App.css';
 function App() {
 	const { locale } = useAppSelector(store => store.localesReducer);
 	/**
-	 * 获取地区语言配置
+	 * 获取地区语  言 配置
 	 * @returns Locale
 	 */
 	const getLocale = () => {
