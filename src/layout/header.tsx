@@ -6,41 +6,61 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { LocaleStatus, TOGGLE_LOCALED } from '../store/locale';
 
 export default function HeaderComponent() {
-  const locale = useAppSelector(state => state.localesReducer);
-  const dispatch = useAppDispatch();
-  /**
-   * 切换语言
-   * @param event
-   */
-  const toggleLanguage: MenuProps['onClick'] = event => {
-    const target = event.key as LocaleStatus;
-    dispatch(
-      TOGGLE_LOCALED({
-        locale: target
-      })
-    );
-  };
-  const selectLanguageMenu = (
-    <Menu onClick={toggleLanguage}>
-      <Menu.Item style={{ textAlign: 'left' }} disabled={locale.locale === LocaleStatus.ZH_CN} key={LocaleStatus.ZH_CN}>
-        <ZhCnSvg /> 简体中文
-      </Menu.Item>
-      <Menu.Item style={{ textAlign: 'left' }} disabled={locale.locale === LocaleStatus.ZH_TW} key={LocaleStatus.ZH_TW}>
-        <ZhCnSvg /> 繁體中文
-      </Menu.Item>
-      <Menu.Item style={{ textAlign: 'left' }} disabled={locale.locale === LocaleStatus.US_EN} key={LocaleStatus.US_EN}>
-        <EnUsSvg /> English
-      </Menu.Item>
-    </Menu>
-  );
-  return (
-    <Row>
-      <Col span={8}>col-8</Col>
-      <Col span={8} offset={8} style={{ background: '#fff' }}>
-        <Dropdown overlay={selectLanguageMenu} trigger={['click']}>
-          <LanguageSvg />
-        </Dropdown>
-      </Col>
-    </Row>
-  );
+	const { locale } = useAppSelector(state => state.localesReducer);
+	const dispatch = useAppDispatch();
+	const isZhCn = locale === LocaleStatus.ZH_CN;
+	const isZhTw = locale === LocaleStatus.ZH_TW;
+	const isUsEn = locale === LocaleStatus.US_EN;
+	const menuItems: MenuProps['items'] = [
+		{
+			disabled: isZhCn,
+			key: LocaleStatus.ZH_CN,
+			label: (
+				<>
+					<ZhCnSvg /> 简体中文
+				</>
+			)
+		},
+		{
+			disabled: isZhTw,
+			key: LocaleStatus.ZH_TW,
+			label: (
+				<>
+					<ZhCnSvg /> 繁體中文
+				</>
+			)
+		},
+		{
+			disabled: isUsEn,
+			key: LocaleStatus.US_EN,
+			label: (
+				<>
+					<EnUsSvg /> English
+				</>
+			)
+		}
+	];
+	/**
+	 * 切换语言
+	 * @param event
+	 */
+	const toggleLanguage: MenuProps['onClick'] = event => {
+		const target = event.key as LocaleStatus;
+		dispatch(
+			TOGGLE_LOCALED({
+				locale: target
+			})
+		);
+	};
+	const selectLanguageMenu = <Menu onClick={toggleLanguage} mode="vertical" items={menuItems} />;
+	return (
+		<Row>
+			<Col span={8}>col-8</Col>
+			<Col span={8} offset={8} style={{ background: '#fff' }}>
+				<Dropdown overlay={selectLanguageMenu} trigger={['click']}>
+					<LanguageSvg />
+				</Dropdown>
+			</Col>
+		</Row>
+	);
 }
