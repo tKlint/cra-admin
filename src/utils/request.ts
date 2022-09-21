@@ -28,8 +28,7 @@ const baseMockUrl = process.env.MOCK_API || '';
 
 const service = axios.create({
   // baseURL: baseApiUrl,
-  timeout: 6000,
-  
+  timeout: 6000
 });
 
 service.interceptors.request.use(

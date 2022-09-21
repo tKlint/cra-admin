@@ -1,20 +1,17 @@
-import React from 'react';
-import { Button, ConfigProvider, Modal, Space } from 'antd';
-import './App.css';
-import { useAppDispatch, useAppSelector } from './store/hooks';
-import { LocaleStatus, TOGGLE_LOCALED } from './store/locale';
+import { ConfigProvider } from 'antd';
+import { IntlProvider } from 'react-intl';
 import enUS from 'antd/es/locale/en_US';
 import zhCN from 'antd/es/locale/zh_CN';
 import zhTW from 'antd/es/locale/zh_TW';
-import { FormattedMessage, IntlProvider } from 'react-intl'
+import { useAppSelector } from './store/hooks';
+import { LocaleStatus } from './store/locale';
 import locales from './locales/index';
-import { BrowserRouter } from 'react-router-dom';
 import DynamicRouter from './routes';
+
+import './App.css';
 
 function App() {
   const { locale } = useAppSelector(store => store.localesReducer);
-  const dispatch =  useAppDispatch();
-  console.log('app update')
   /**
    * 获取地区语言配置
    * @returns Locale
@@ -30,48 +27,14 @@ function App() {
       default:
         return zhCN;
     }
-  }
-  /**
-   * 设置区域
-   * @param locale 
-   */
-  const setLocales = (locale: LocaleStatus) => {
-    dispatch(TOGGLE_LOCALED({
-      locale,
-    }));
-  }
+  };
 
   return (
-   <ConfigProvider locale={getLocale()}>
-     <IntlProvider locale={locale.split('_')[0]} messages={locales[locale]}>
-       <DynamicRouter />
-      {/* <div>
-        <FormattedMessage 
-          id="app.welcome"
-        />
-        <FormattedMessage 
-          id="app.date"
-          values={{ts: Date.now()}}
-        />
-        <div>
-          <Space>
-            <Button onClick={() => setLocales(LocaleStatus.US_EN)}>
-              english
-            </Button>
-            <Button onClick={() => setLocales(LocaleStatus.ZH_TW)}>
-              繁體中文
-            </Button>
-            <Button onClick={() => setLocales(LocaleStatus.ZH_CN)}>
-              简体中文
-            </Button>
-          </Space>
-        </div>
-      </div> */}
-      {/* <BrowserRouter> */}
-        
-      {/* </BrowserRouter> */}
-     </IntlProvider>
-   </ConfigProvider>
+    <ConfigProvider locale={getLocale()}>
+      <IntlProvider locale={locale.split('_')[0]} messages={locales[locale]}>
+        <DynamicRouter />
+      </IntlProvider>
+    </ConfigProvider>
   );
 }
 
