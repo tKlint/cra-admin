@@ -1,11 +1,6 @@
 import { message as $message } from 'antd';
 import axios, { AxiosRequestConfig } from 'axios';
 
-// import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum';
-import { userStore } from '../store/user';
-// import { Storage } from '@/utils/Storage';
-// import {ExclamationCircleOutlined} from '@ant-design/icons'
-
 export interface RequestOptions {
   /** 当前接口权限, 不需要鉴权的接口请忽略， 格式：sys:user:add */
   permCode?: string;
@@ -25,6 +20,8 @@ const UNKNOWN_ERROR = '未知错误，请重试';
 const baseApiUrl = process.env.BASE_API || '';
 /** mock请求路径前缀 */
 const baseMockUrl = process.env.MOCK_API || '';
+console.log('baseApiUrl', baseApiUrl);
+console.log('baseMockUrl', baseMockUrl);
 
 const service = axios.create({
   // baseURL: baseApiUrl,
@@ -71,7 +68,7 @@ service.interceptors.response.use(
       }
 
       // throw other
-      const error = new Error(res.message || UNKNOWN_ERROR) as Error & { code: any };
+      const error = new Error(res.message || UNKNOWN_ERROR) as Error & { code: number };
       error.code = res.code;
       return Promise.reject(error);
     } else {
@@ -87,13 +84,13 @@ service.interceptors.response.use(
   }
 );
 
-export type Response<T = any> = {
+export type Response<T = Record<string, unknown>> = {
   code: number;
   message: string;
   data: T;
 };
 
-export type BaseResponse<T = any> = Promise<Response<T>>;
+export type BaseResponse<T = Record<string, unknown>> = Promise<Response<T>>;
 
 /**
  *
@@ -101,9 +98,13 @@ export type BaseResponse<T = any> = Promise<Response<T>>;
  * @param url - request url
  * @param data - request data or params
  */
-export const request = async <T = any>(config: AxiosRequestConfig, options: RequestOptions = {}): Promise<T> => {
+export const request = async <T = Record<string, unknown>>(
+  config: AxiosRequestConfig,
+  options: RequestOptions = {}
+): Promise<T> => {
   try {
     const { successMsg, errorMsg, permCode, isMock = false, isGetDataDirectly = true } = options;
+    console.log(isMock, 'mock');
     if (permCode) {
       return $message.error('你没有访问该接口的权限，请联系管理员！');
     }
@@ -114,7 +115,7 @@ export const request = async <T = any>(config: AxiosRequestConfig, options: Requ
     successMsg && $message.success(successMsg);
     errorMsg && $message.error(errorMsg);
     return isGetDataDirectly ? res.data : res;
-  } catch (error: any) {
+  } catch (error: unknown) {
     return Promise.reject(error);
   }
 };

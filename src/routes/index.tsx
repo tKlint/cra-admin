@@ -34,7 +34,7 @@ export default function DynamicRouter() {
   const user = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
   const { pathname, state } = useLocation();
-  const { token, routes, menuItems } = user;
+  const { token, routes } = user;
   const navigate = useNavigate();
 
   useEffect(() => {

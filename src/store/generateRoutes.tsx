@@ -1,5 +1,4 @@
 import { MenuProps } from 'antd';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import React from 'react';
 import { IRoutes } from '../routes/typing';
 import WrapperRouteComponent from '../routes/WrapperRouteComponent';

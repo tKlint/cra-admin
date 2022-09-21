@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { IProps } from './WrapperRouteComponent';
 import { useAppSelector } from '../store/hooks';
 import { Button, Result } from 'antd';

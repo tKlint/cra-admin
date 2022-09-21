@@ -2,7 +2,6 @@ import { createSlice, CaseReducer, createAsyncThunk } from '@reduxjs/toolkit';
 import { request } from '../utils/request';
 import storage from '../utils/Storage';
 import api from '../service';
-import { ItemType } from 'antd/lib/menu/hooks/useItems';
 import { generateMenus } from './generateRoutes';
 import { MenuProps } from 'antd';
 
@@ -31,6 +30,8 @@ type UserReducer = {
 };
 
 export async function afterLoginApi({ token, userNo }: { token?: string; userNo?: string }) {
+  console.log('token', token);
+  console.log('userNo', userNo);
   const [routerList] = await Promise.all([api.fetchUserRoute()]);
   const menuItems = generateMenus((routerList as { data: API.RoutesResponse[] }).data);
   return {
@@ -48,7 +49,7 @@ export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
       userName: 'superadmin'
     }
   });
-  const { token, userNo } = response;
+  const { token, userNo } = response as { token: string; userNo: string };
   storage.set('access_token', token);
   storage.set('user_no', userNo);
   const { routes, menuItems } = await afterLoginApi({ token, userNo });
@@ -76,7 +77,7 @@ const userReducer = createSlice<UserState, UserReducer, 'user'>({
     routes: []
   },
   reducers: {
-    [Reducers.FETECH_USER]: (state, { payload, type }) => {
+    [Reducers.FETECH_USER]: (state, { payload }) => {
       state = payload;
     }
   },
