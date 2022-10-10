@@ -31,8 +31,7 @@ const localesReducer = createSlice<LocaleState, LocalesReducer, 'locale'>({
 		locale: LocaleStatus.ZH_CN
 	},
 	reducers: {
-		[Reducers.TOGGLE_LOCALED]: (state, { payload, type }) => {
-			console.log(type, 'type');
+		[Reducers.TOGGLE_LOCALED]: (state, { payload }) => {
 			state.locale = payload.locale;
 		}
 	}

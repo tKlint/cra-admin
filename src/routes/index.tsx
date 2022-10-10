@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useMemo } from 'react';
-import { RouteObject, useLocation, useNavigate, useRoutes } from 'react-router-dom';
+import { Navigate, RouteObject, useLocation, useNavigate, useRoutes } from 'react-router-dom';
 import WrapperRouteComponent from './WrapperRouteComponent';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { afterLogin } from '../store/user';
@@ -53,6 +53,14 @@ export default function DynamicRouter() {
 		const routesInstance = cloneDeep(defaultRouters);
 		const routesWithComponent = generateRoutes(routes);
 		const layoutRoute = routesInstance.find(item => item.path === '/')?.children;
+		const defaultPage = routesWithComponent[0]?.path || '';
+		const defaultRouter = {
+			path: '/',
+			element: <Navigate to={defaultPage} />
+		};
+		if (defaultPage) {
+			layoutRoute?.push(defaultRouter);
+		}
 		layoutRoute?.push(...cloneDeep([...routesWithComponent]), ...notFoundPage);
 		return routesInstance;
 	}, [routes]);

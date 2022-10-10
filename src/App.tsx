@@ -7,8 +7,10 @@ import { useAppSelector } from './store/hooks';
 import { LocaleStatus } from './store/locale';
 import locales from './locales/index';
 import DynamicRouter from './routes';
+import { useEffect } from 'react';
+import { getThemesConfig } from './utils/getUserConfig';
 
-import './App.css';
+import './App.less';
 
 function App() {
 	const { locale } = useAppSelector(store => store.localesReducer);
@@ -28,6 +30,24 @@ function App() {
 				return zhCN;
 		}
 	};
+
+	const initAppThemeConfig = () => {
+		ConfigProvider.config({
+			theme: {
+				// primaryColor: process.env.THEME_PRIMARY_COLOR,
+				...getThemesConfig()
+				// infoColor: '#be8f8fd9',
+				// successColor: '#be8f8fd9',
+				// processingColor: '#be8f8fd9',
+				// errorColor: '#be8f8fd9',
+				// warningColor: '#be8f8fd9'
+			}
+		});
+	};
+
+	useEffect(() => {
+		initAppThemeConfig();
+	}, []);
 
 	return (
 		<ConfigProvider locale={getLocale()}>

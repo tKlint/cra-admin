@@ -1,4 +1,5 @@
 const zhTW = {
+	'modal.confirm': '確認',
 	'page.login.login': '登錄',
 	'page.login.logout': '退出登錄',
 	'page.login.register': '註冊',
@@ -9,6 +10,7 @@ const zhTW = {
 	'app.no-login': '未登錄',
 	'app.login-tip': '去登錄',
 	'menu.about': '關於',
-	'menu.dashboard': '儀錶盤'
+	'menu.dashboard': '儀錶盤',
+	'layout.change-theme-color': '更換主題色'
 };
 export default zhTW;

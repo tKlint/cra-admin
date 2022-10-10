@@ -107,6 +107,7 @@ function getClientEnvironment(publicUrl) {
         FAST_REFRESH: process.env.FAST_REFRESH !== 'false',
         BASE_API: process.env.BASE_API,
         APP_NAME: process.env.APP_NAME,
+        THEME_PRIMARY_COLOR: process.env.THEME_PRIMARY_COLOR
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin

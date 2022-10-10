@@ -7,7 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import store from './store';
 
 import './index.less';
-import 'antd/dist/antd.less';
+// import 'antd/dist/antd.less';
+import 'antd/dist/antd.variable.min.css';
 import 'antd/lib/style/index.css';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -24,4 +25,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals(console.log);

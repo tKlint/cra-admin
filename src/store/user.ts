@@ -5,6 +5,8 @@ import api from '../service';
 import { generateMenus } from './generateRoutes';
 import { MenuProps } from 'antd';
 
+const fakeAvatarUrl = 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png';
+
 enum Reducers {
 	FETECH_USER = 'FETECH_USER'
 }
@@ -17,6 +19,7 @@ export interface UserState {
 	userNo?: string;
 	routes: API.RoutesResponse[];
 	menuItems?: MenuProps['items'];
+	avatarUrl?: string;
 }
 
 type UserReducer = {
@@ -30,8 +33,6 @@ type UserReducer = {
 };
 
 export async function afterLoginApi({ token, userNo }: { token?: string; userNo?: string }) {
-	console.log('token', token);
-	console.log('userNo', userNo);
 	const [routerList] = await Promise.all([api.fetchUserRoute()]);
 	const menuItems = generateMenus((routerList as { data: API.RoutesResponse[] }).data);
 	return {
@@ -52,11 +53,14 @@ export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
 	const { token, userNo } = response as { token: string; userNo: string };
 	storage.set('access_token', token);
 	storage.set('user_no', userNo);
+	storage.set('avatar_url', fakeAvatarUrl);
+	// storage.set('user_name', fakeAvatarUrl);
 	const { routes, menuItems } = await afterLoginApi({ token, userNo });
 	return {
 		...response,
 		routes,
-		menuItems
+		menuItems,
+		avatarUrl: fakeAvatarUrl
 	};
 });
 
@@ -74,6 +78,8 @@ const userReducer = createSlice<UserState, UserReducer, 'user'>({
 	initialState: {
 		token: storage.get('access_token', ''),
 		userNo: storage.get('user_no', ''),
+		avatarUrl: storage.get('avatar_url', ''),
+		userFullNameCn: storage.get('user_name', ''),
 		routes: []
 	},
 	reducers: {

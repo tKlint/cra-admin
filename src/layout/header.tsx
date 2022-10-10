@@ -1,9 +1,13 @@
-import { Col, Dropdown, Menu, MenuProps, Row } from 'antd';
-import { ReactComponent as LanguageSvg } from '../assets/header/language.svg';
+import { Button, Col, Dropdown, Menu, MenuProps, Row, Space } from 'antd';
+// import { ReactComponent as LanguageSvg } from '../assets/header/language.svg';
 import { ReactComponent as ZhCnSvg } from '../assets/header/zh_CN.svg';
 import { ReactComponent as EnUsSvg } from '../assets/header/en_US.svg';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { LocaleStatus, TOGGLE_LOCALED } from '../store/locale';
+import SiteSearch from './siteSearch';
+import { GlobalOutlined } from '@ant-design/icons';
+import UseAvatar from './useAvatar';
+import ThemesBar from './themesBar';
 
 export default function HeaderComponent() {
 	const { locale } = useAppSelector(state => state.localesReducer);
@@ -54,12 +58,20 @@ export default function HeaderComponent() {
 	};
 	const selectLanguageMenu = <Menu onClick={toggleLanguage} mode="vertical" items={menuItems} />;
 	return (
-		<Row>
-			<Col span={8}>col-8</Col>
-			<Col span={8} offset={8} style={{ background: '#fff' }}>
-				<Dropdown overlay={selectLanguageMenu} trigger={['click']}>
-					<LanguageSvg />
-				</Dropdown>
+		<Row className="header-content" align="middle" justify="space-between">
+			<Col>logo ant site</Col>
+			<Col>
+				<Space>
+					<SiteSearch />
+					<UseAvatar />
+					<Dropdown overlay={selectLanguageMenu} trigger={['click']}>
+						<Button type="text" style={{ color: 'aliceblue', padding: 0 }}>
+							{/* <LanguageSvg /> */}
+							<GlobalOutlined />
+						</Button>
+					</Dropdown>
+					<ThemesBar />
+				</Space>
 			</Col>
 		</Row>
 	);
