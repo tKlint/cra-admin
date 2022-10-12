@@ -176,10 +176,6 @@
       "eslint --fix",
       "git add"
     ],
-    "*.{less,css}": [
-      "stylelint --config  ./.stylelintrc --fix",
-      "git add"
-    ],
     "*.{ts,tsx}": [
       "prettier --parser typescript --write",
       "git add"
