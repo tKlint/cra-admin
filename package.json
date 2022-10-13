@@ -73,6 +73,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
+    "page": "node scripts/page.js",
     "format": "prettier --write  **/*.{js,ts,tsx} && eslint . --ext js,ts,tsx --fix",
     "prepare": "husky install",
     "lint-staged": "lint-staged --allow-empty",
