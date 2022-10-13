@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs =  require('fs');
 
 /*---------------------README----------------
   运行npm run page [pagePath]
