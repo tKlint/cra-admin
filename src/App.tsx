@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, Modal } from 'antd';
 import { IntlProvider } from 'react-intl';
 import enUS from 'antd/es/locale/en_US';
 import zhCN from 'antd/es/locale/zh_CN';
@@ -11,9 +11,11 @@ import { useEffect } from 'react';
 import { getThemesConfig } from './utils/getUserConfig';
 
 import './App.less';
+import { useVersionUpdater } from './utils/versionUpdater';
 
 function App() {
 	const { locale } = useAppSelector(store => store.localesReducer);
+	const updater = useVersionUpdater();
 	/**
 	 * 获取地区语  言 配置
 	 * @returns Locale
@@ -44,9 +46,34 @@ function App() {
 			}
 		});
 	};
-
+	/**
+	 * 版本更新回调
+	 */
+	const onVersionUpdate = () => {
+		Modal.warn({
+			title: '提示',
+			content: '监测到有新的版本, 请刷新页面!',
+			onOk() {
+				location.reload();
+			},
+			afterClose() {
+				updater.current?.stop();
+			}
+		});
+	};
+	const initVersionWatcher = () => {
+		updater.current?.on('update', onVersionUpdate);
+		updater.current?.on('no-update', () => {
+			console.log('未检测到新版本');
+		});
+		updater.current?.watch();
+	};
 	useEffect(() => {
 		initAppThemeConfig();
+		initVersionWatcher();
+		return () => {
+			updater.current?.stop();
+		};
 	}, []);
 
 	return (
