@@ -156,6 +156,7 @@
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.1.0",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/lodash": "^4.14.185",
     "@types/react-color": "^3.0.6",
     "@typescript-eslint/eslint-plugin": "^5.36.2",
