@@ -61,7 +61,7 @@ export default function DynamicRouter() {
 		if (defaultPage) {
 			layoutRoute?.push(defaultRouter);
 		}
-		layoutRoute?.push(...cloneDeep([...routesWithComponent]), ...notFoundPage);
+		layoutRoute?.push(...(cloneDeep([...routesWithComponent]) as RouteObject[]), ...notFoundPage);
 		return routesInstance;
 	}, [routes]);
 
