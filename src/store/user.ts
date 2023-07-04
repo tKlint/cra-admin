@@ -33,6 +33,7 @@ type UserReducer = {
 };
 
 export async function afterLoginApi({ token, userNo }: { token?: string; userNo?: string }) {
+  console.log({ token, userNo });
   const [routerList] = await Promise.all([api.fetchUserRoute()]);
   const menuItems = generateMenus((routerList as { data: API.RoutesResponse[] }).data);
   return {
