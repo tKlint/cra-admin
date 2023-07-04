@@ -6,18 +6,18 @@ import userReducer from './user';
 import { UserState } from './user';
 
 const rootReduce = combineReducers<
-	{
-		localesReducer: LocaleState;
-		userReducer: UserState;
-	},
-	AnyAction
+  {
+    localesReducer: LocaleState;
+    userReducer: UserState;
+  },
+  AnyAction
 >({
-	localesReducer,
-	userReducer
+  localesReducer,
+  userReducer
 });
 
 const store = configureStore({
-	reducer: rootReduce
+  reducer: rootReduce
 });
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
