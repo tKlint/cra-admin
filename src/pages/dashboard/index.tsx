@@ -31,10 +31,11 @@ const arr = [
   }
 ];
 
+type DataType = typeof arr;
 export default function Dashboard() {
-  const [dataSource, setDataSource] = useState<typeof arr>([]);
-  const tableMergerer = useTableMergerer<typeof arr[number]>();
-  const columns: ColumnsType<typeof arr[number]> = [
+  const [dataSource, setDataSource] = useState<DataType>([]);
+  const tableMergerer = useTableMergerer<DataType[number]>();
+  const columns: ColumnsType<DataType[number]> = [
     {
       title: 'mergeIdx',
       render(dom, row, idx) {
