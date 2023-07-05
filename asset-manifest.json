@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://tklint.github.io/CRA-example/static/css/main.ff0c7df1.css",
-    "main.js": "https://tklint.github.io/CRA-example/static/js/main.ac53f2b1.js",
+    "main.js": "https://tklint.github.io/CRA-example/static/js/main.ba3941c9.js",
     "static/js/255.154eb356.chunk.js": "https://tklint.github.io/CRA-example/static/js/255.154eb356.chunk.js",
     "static/js/584.9d2c9b03.chunk.js": "https://tklint.github.io/CRA-example/static/js/584.9d2c9b03.chunk.js",
     "static/js/713.8974b143.chunk.js": "https://tklint.github.io/CRA-example/static/js/713.8974b143.chunk.js",
@@ -15,7 +15,7 @@
     "static/media/zh_CN.svg": "https://tklint.github.io/CRA-example/static/media/zh_CN.452b844e2cd4456ca9df6a85805ba93c.svg",
     "index.html": "https://tklint.github.io/CRA-example/index.html",
     "main.ff0c7df1.css.map": "https://tklint.github.io/CRA-example/static/css/main.ff0c7df1.css.map",
-    "main.ac53f2b1.js.map": "https://tklint.github.io/CRA-example/static/js/main.ac53f2b1.js.map",
+    "main.ba3941c9.js.map": "https://tklint.github.io/CRA-example/static/js/main.ba3941c9.js.map",
     "255.154eb356.chunk.js.map": "https://tklint.github.io/CRA-example/static/js/255.154eb356.chunk.js.map",
     "584.9d2c9b03.chunk.js.map": "https://tklint.github.io/CRA-example/static/js/584.9d2c9b03.chunk.js.map",
     "713.8974b143.chunk.js.map": "https://tklint.github.io/CRA-example/static/js/713.8974b143.chunk.js.map",
@@ -28,6 +28,6 @@
   },
   "entrypoints": [
     "static/css/main.ff0c7df1.css",
-    "static/js/main.ac53f2b1.js"
+    "static/js/main.ba3941c9.js"
   ]
 }
