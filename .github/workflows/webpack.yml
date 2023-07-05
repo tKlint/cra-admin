@@ -1,28 +1,30 @@
-name: NodeJS with Webpack
+name: Build and Deploy
 
 on:
   push:
     branches: ['main']
-  pull_request:
-    branches: ['main']
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
+    
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Build
-        run: |
-          yarn
-          yarn build
+          node-version: '18'
+      
+      - name: Install Dependencies
+        run: yarn
+      
+      - name: Build Website
+        run: yarn build # 根据您的项目需要运行适当的构建命令
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: \${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build # 指定构建输出的目录
