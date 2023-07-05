@@ -105,10 +105,10 @@ export default class VersionUpdater extends Poller {
  * 版本监听hook
  * @returns
  */
-export function useVersionUpdater() {
+export function useVersionUpdater(baseURL = '/') {
   const updater = useRef<VersionUpdater | null>(null);
   if (updater.current === null) {
-    updater.current = new VersionUpdater('/');
+    updater.current = new VersionUpdater(baseURL);
   }
   return updater;
 }

@@ -15,7 +15,7 @@ import { useVersionUpdater } from './utils/versionUpdater';
 
 function App() {
   const { locale } = useAppSelector(store => store.localesReducer);
-  const updater = useVersionUpdater();
+  const updater = useVersionUpdater('/CRA-example/');
   /**
    * 获取地区语  言 配置
    * @returns Locale
