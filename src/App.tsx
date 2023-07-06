@@ -15,7 +15,7 @@ import { useVersionUpdater } from './utils/versionUpdater';
 
 function App() {
   const { locale } = useAppSelector(store => store.localesReducer);
-  const updater = useVersionUpdater('/CRA-example/');
+  const updater = useVersionUpdater(process.env.PUBLIC_URL);
   /**
    * 获取地区语  言 配置
    * @returns Locale
@@ -62,6 +62,10 @@ function App() {
     });
   };
   const initVersionWatcher = () => {
+    // 只针对生产环境做版本监听
+    if (process.env.NODE_ENV !== 'production') {
+      return;
+    }
     updater.current?.on('update', onVersionUpdate);
     updater.current?.on('no-update', () => {
       console.log('未检测到新版本');
