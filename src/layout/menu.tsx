@@ -6,10 +6,16 @@ import { useAppSelector } from '../store/hooks';
 import { MenuItemType } from 'antd/lib/menu/hooks/useItems';
 import './style.less';
 
-export default function IMenu() {
+type IMenuProps = {
+  onChange?: (path: string) => void;
+};
+
+export default function IMenu(props: IMenuProps) {
+  const { onChange } = props;
   const navigator = useNavigate();
   const user = useAppSelector(state => state.userReducer);
   const { formatMessage } = useLocale();
+  const defaultSelectedKeys = location.hash.replace('#', '');
   const creatMenuItem = (): MenuProps['items'] => {
     return user.menuItems?.map(item => {
       const intlLabel = formatMessage({
@@ -26,11 +32,12 @@ export default function IMenu() {
   return (
     <Menu
       mode="inline"
-      defaultSelectedKeys={['/dashboard']}
+      defaultSelectedKeys={[defaultSelectedKeys]}
       style={{ height: '100%', borderRight: 0 }}
       items={creatMenuItem()}
       onSelect={e => {
         navigator(e.key);
+        onChange?.(e.key);
       }}
     />
   );

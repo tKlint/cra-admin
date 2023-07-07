@@ -4,10 +4,16 @@ import IMenu from './menu';
 import HeaderComponent from './header';
 
 import './style.less';
+import ErrorBoundary from './ErrorBoundary';
+import { useRef } from 'react';
 
 const { Header, Content, Sider, Footer } = Layout;
 
 export default function BaseLayout() {
+  const ref = useRef<ErrorBoundary>(null);
+  const onMenuChangeHandle = () => {
+    ref.current?.resetError();
+  };
   return (
     <div className="layout-container">
       <Layout>
@@ -16,12 +22,14 @@ export default function BaseLayout() {
         </Header>
         <Layout className="content-layout">
           <Sider collapsible>
-            <IMenu />
+            <IMenu onChange={onMenuChangeHandle} />
           </Sider>
           <Layout>
             <Content>
               <div className="layout-page-container">
-                <RouteView />
+                <ErrorBoundary ref={ref}>
+                  <RouteView />
+                </ErrorBoundary>
               </div>
             </Content>
             <Footer>foofter</Footer>
