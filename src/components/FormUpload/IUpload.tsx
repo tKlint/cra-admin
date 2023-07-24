@@ -2,7 +2,6 @@ import { createFileBase64 } from '@/utils/tools';
 import { Progress, Upload, UploadFile, UploadProps } from 'antd';
 import { ItemRender } from 'antd/lib/upload/interface';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { RcFile } from 'antd/lib/upload';
 
 type RenderProps = (loadding: boolean) => React.ReactNode;
 
@@ -118,7 +117,7 @@ const IUpload: React.FC<IUploadProps> = props => {
   /**
    * 自定义上传
    */
-  const beforUploadHandle: UploadProps['beforeUpload'] = file => {
+  const beforUploadHandle: UploadProps['beforeUpload'] = () => {
     return false;
   };
 

@@ -1,10 +1,9 @@
 import FormUpload, { FormUploadProps } from '@/components/FormUpload';
-import IUpload, { IUploadProps } from '@/components/FormUpload/IUpload';
+import { IUploadProps } from '@/components/FormUpload/IUpload';
 import CardTemplate from '@/components/FormUpload/Template/CardItem';
 import { request } from '@/utils/request';
 import { Button, Form, FormItemProps, Input, message } from 'antd';
 import { RcFile } from 'antd/lib/upload';
-import React from 'react';
 
 import './style.less';
 

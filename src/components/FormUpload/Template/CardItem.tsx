@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Image, Progress, UploadFile, UploadProps } from 'antd';
+import { Image, UploadFile } from 'antd';
 import {
   FileZipOutlined,
   FilePdfOutlined,
@@ -35,7 +35,7 @@ export function getFileThumbUrl(fileType: string) {
   return fileTypeThumbUrlMap[fileType as keyof typeof fileTypeThumbUrlMap] || <FileTextOutlined style={iconStyle} />;
 }
 export default function CardTemplate(props: ICardItemProps) {
-  const { file, fileList, actions, width = 500, className = '' } = props;
+  const { file, actions, className = '' } = props;
   return (
     <div className={`upload-template-v1 ${className}`}>
       <div className={`upload-template-wrap  ${file.status === 'error' ? 'upload-error-wrap' : ''}`}>
