@@ -47,7 +47,7 @@ export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
     url: '/gateway/admin/signin',
     method: 'post',
     data: {
-      userPassword: 'admin123456',
+      userPassword: 'admin230220CvNypF',
       userName: 'superadmin'
     }
   });

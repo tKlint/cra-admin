@@ -1,0 +1,76 @@
+.upload-template-v1 {
+  position: relative;
+  max-width: 100%;
+  max-width: 400px;
+  height: 98px;
+  margin-top: 15px;
+  .upload-error-wrap {
+    border: 1px solid red;
+    .file-name {
+      color: red !important;
+    }
+  }
+  .upload-template-wrap {
+    padding: 16px;
+    border-radius: 8px;
+    height: 100%;
+    background: linear-gradient(219deg, #F9FAFD 0%, #F0F0F4 100%);
+    display: flex;
+    justify-content: space-between;
+    >.file-info-content {
+      display: flex;
+      align-items: center;
+      .ant-image {
+        width: 56px;
+      }
+      >.file-info-wrap {
+        flex: 1;
+        padding: 0px 10px;
+
+        .file-name {
+          // flex: 1;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          width: 200px;
+          white-space: nowrap;
+          font-size: 16px;
+          font-weight: 400;
+          color: #28323C;
+        }
+        .file-size {
+          color: #9CA8BA;
+          font-size: 14px;
+        }
+      }
+    }
+    >.file-action-content {
+      // width: 80px;
+      flex: 1;
+      max-width: 50px;
+      min-width: 50px;
+      flex-grow: 0;
+      // flex-shrink: 0;
+    }
+  }
+  .upload-template-progress-mask {
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    position: absolute;
+    border-radius: 8px;
+    overflow: hidden;
+    .progress-wrap {
+      height: 100%;
+      display: flex;
+      .progress-bar {
+        flex: 1;
+        background: rgba(188, 188, 188,.4);
+        height: 100%;
+      }
+      .progress, .progress-bar {
+        transition: width .1s linear;
+      }
+    }
+  }
+}
+

@@ -1,5 +1,6 @@
 import { message as $message } from 'antd';
 import axios, { AxiosRequestConfig } from 'axios';
+import storage from './Storage';
 
 export interface RequestOptions {
   /** 当前接口权限, 不需要鉴权的接口请忽略， 格式：sys:user:add */
@@ -24,16 +25,16 @@ console.log('baseApiUrl', baseApiUrl);
 console.log('baseMockUrl', baseMockUrl);
 
 const service = axios.create({
-  // baseURL: baseApiUrl,
+  baseURL: baseApiUrl,
   timeout: 6000
 });
 
 service.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('ACCESS_TOKEN_KEY');
+    const token = storage.get('access_token', '');
     if (token && config.headers) {
       // 请求头token信息，请根据实际情况进行修改
-      config.headers['Authorization'] = token;
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
   },
@@ -45,8 +46,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data;
-
-    // if the custom code is not 200, it is judged as an error.
     if (res.code !== 200) {
       $message.error(res.message || UNKNOWN_ERROR);
 
@@ -103,8 +102,7 @@ export const request = async <T = Record<string, unknown>>(
   options: RequestOptions = {}
 ): Promise<T> => {
   try {
-    const { successMsg, errorMsg, permCode, isMock = false, isGetDataDirectly = true } = options;
-    console.log(isMock, 'mock');
+    const { successMsg, errorMsg, permCode, isGetDataDirectly = true } = options;
     if (permCode) {
       return $message.error('你没有访问该接口的权限，请联系管理员！');
     }
