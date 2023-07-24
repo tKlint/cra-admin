@@ -28,7 +28,7 @@ export type IUploadProps = {
   templateRender?: ItemRender;
 };
 
-export function isRenderProps(children: any): children is RenderProps {
+export function isRenderProps(children: unknown): children is RenderProps {
   return typeof children === 'function';
 }
 
