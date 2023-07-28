@@ -96,9 +96,9 @@ export default class VersionUpdater extends Poller {
   /**
    * 监听函数
    */
-  async watch() {
-    this.stop();
-    this.start(this.polling.bind(this));
+  async start() {
+    super.stop();
+    super.start(this.polling.bind(this));
   }
 }
 /**

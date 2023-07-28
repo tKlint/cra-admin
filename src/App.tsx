@@ -70,7 +70,7 @@ function App() {
     updater.current?.on('no-update', () => {
       console.log('未检测到新版本');
     });
-    updater.current?.watch();
+    updater.current?.start();
   };
   useEffect(() => {
     initAppThemeConfig();

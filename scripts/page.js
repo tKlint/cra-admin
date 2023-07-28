@@ -22,8 +22,7 @@ function toUpperCase(str, index) {
   const firstWord = str.slice(index, 1).toUpperCase();
   return firstWord + str.slice(1);
 }
-const template = `
-import React from 'react';
+const template = `import React from 'react';
 
 import './style.less';
 
