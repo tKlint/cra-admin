@@ -36,7 +36,6 @@ export default function DynamicRouter() {
   const { pathname, state } = useLocation();
   const { token, routes } = user;
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!token && pathname !== '/login') {
       return navigate({ pathname: 'login' }, { replace: true, state: { from: pathname } });

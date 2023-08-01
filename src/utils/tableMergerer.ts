@@ -146,7 +146,7 @@ export default class TableMergerer<T = Record<string, unknown>> {
    * @param renderFlag 自定义合并规则
    * @returns
    */
-  render(dom: ReactNode | 'index', fieldKey: string, rowIdx: number, renderFlag?: RenderFlag | undefined) {
+  render(dom: ReactNode | 'index' | null, fieldKey: string, rowIdx: number, renderFlag?: RenderFlag | undefined) {
     const { s, e, mergeIndex } = this.getCurRowMergeData(fieldKey, rowIdx);
     const renderDom = dom === 'index' ? mergeIndex : dom;
     if (renderFlag) {

@@ -1,5 +1,5 @@
 import { useTableMergerer } from '@/utils/tableMergerer';
-import { Table } from 'antd';
+import { Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import React, { useEffect, useState } from 'react';
 
@@ -38,22 +38,28 @@ export default function Dashboard() {
   const columns: ColumnsType<DataType[number]> = [
     {
       title: 'mergeIdx',
-      render(dom, row, idx) {
-        return tableMergerer.render('index', `name-${row.name}`, idx);
+      render(_, row, idx) {
+        return tableMergerer.getCurRowMergeData(`name-${row.name}`, idx).mergeIndex;
+      },
+      onCell: (row, idx = 0) => {
+        return tableMergerer.render(null, `name-${row.name}`, idx).props;
       }
     },
     {
       title: '姓名',
       dataIndex: 'name',
-      render: (dom, row, idx) => {
-        return tableMergerer.render(dom, `name-${row.name}`, idx);
+      render: dom => {
+        return <Tag>{dom}</Tag>;
+      },
+      onCell: (row, idx = 0) => {
+        return tableMergerer.render(null, `name-${row.name}`, idx).props;
       }
     },
     {
       title: '年龄',
       dataIndex: 'age',
-      render: (dom, row, idx) => {
-        return tableMergerer.render(dom, `age-${row.age}`, idx);
+      onCell: (row, idx = 0) => {
+        return tableMergerer.render(null, `age-${row.age}`, idx).props;
       }
     },
     {

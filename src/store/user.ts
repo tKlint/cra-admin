@@ -64,7 +64,18 @@ export const fetchUser = createAsyncThunk<UserState>('users/info', async () => {
     avatarUrl: fakeAvatarUrl
   };
 });
-
+export const logout = createAsyncThunk<UserState>('users/logout', async () => {
+  storage.remove('access_token');
+  storage.remove('user_no');
+  storage.remove('avatar_url');
+  return Promise.resolve({
+    token: undefined,
+    userNo: undefined,
+    avatarUrl: undefined,
+    userFullNameCn: undefined,
+    routes: []
+  });
+});
 export const afterLogin = createAsyncThunk<UserState>('user/after', async () => {
   const { token, userNo } = userReducer.getInitialState();
   const { routes, menuItems } = await afterLoginApi({ token, userNo });
@@ -77,10 +88,10 @@ export const afterLogin = createAsyncThunk<UserState>('user/after', async () => 
 const userReducer = createSlice<UserState, UserReducer, 'user'>({
   name: 'user',
   initialState: {
-    token: storage.get('access_token', ''),
-    userNo: storage.get('user_no', ''),
-    avatarUrl: storage.get('avatar_url', ''),
-    userFullNameCn: storage.get('user_name', ''),
+    token: storage.get('access_token'),
+    userNo: storage.get('user_no'),
+    avatarUrl: storage.get('avatar_url'),
+    userFullNameCn: storage.get('user_name'),
     routes: []
   },
   reducers: {
@@ -97,6 +108,11 @@ const userReducer = createSlice<UserState, UserReducer, 'user'>({
     builder.addCase(afterLogin.fulfilled, (state, { payload }) => {
       state.routes = payload.routes;
       state.menuItems = payload.menuItems;
+    });
+    builder.addCase(logout.fulfilled, (state, { payload }) => {
+      return {
+        ...payload
+      };
     });
   }
 });

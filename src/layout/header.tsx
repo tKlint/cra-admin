@@ -8,6 +8,7 @@ import SiteSearch from './siteSearch';
 import { GlobalOutlined } from '@ant-design/icons';
 import UseAvatar from './useAvatar';
 import ThemesBar from './themesBar';
+import { logout } from '@/store/user';
 
 export default function HeaderComponent() {
   const { locale } = useAppSelector(state => state.localesReducer);
@@ -71,6 +72,14 @@ export default function HeaderComponent() {
             </Button>
           </Dropdown>
           <ThemesBar />
+          <Button
+            type="link"
+            onClick={() => {
+              dispatch(logout());
+            }}
+          >
+            退出
+          </Button>
         </Space>
       </Col>
     </Row>

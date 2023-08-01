@@ -17,7 +17,7 @@ const createStorage = ({ prefix = '', storage = localStorage }) => {
       this.prefix = prefix;
       this.storage = storage;
     }
-    get<T = SimpleObject>(key: string, def: T): T {
+    get<T = SimpleObject>(key: string, def?: T): T | undefined {
       const localItem = this.storage?.getItem(this.getKey(key));
       if (!localItem) {
         return def;
