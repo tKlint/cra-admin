@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { getThemesConfig } from './utils/getUserConfig';
 
 import './App.less';
+import './App.css';
 import { useVersionUpdater } from './utils/versionUpdater';
 
 function App() {

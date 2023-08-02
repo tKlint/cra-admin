@@ -6,6 +6,7 @@ import { Button, Form, FormItemProps, Input, message } from 'antd';
 import { RcFile } from 'antd/lib/upload';
 
 import './style.less';
+import styles from './style.module.css';
 
 export default function About() {
   const uploadFile = (file: RcFile, callback: (percent: number) => void) => {
@@ -66,6 +67,8 @@ export default function About() {
           <Button htmlType="submit">提交</Button>
         </Form.Item>
       </Form>
+      <span className={`${styles.helloText} font-bold underline`}>hello every one</span>
+      <div className="bg-blue-500 bg-red-500">click</div>
     </div>
   );
 }

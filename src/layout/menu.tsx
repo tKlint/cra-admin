@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Menu, MenuProps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useLocale } from '../locales';

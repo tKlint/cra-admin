@@ -1,4 +1,4 @@
-import { Button, Col, Dropdown, Menu, MenuProps, Row, Space } from 'antd';
+import { Button, Col, Dropdown, MenuProps, Row, Space } from 'antd';
 // import { ReactComponent as LanguageSvg } from '../assets/header/language.svg';
 import { ReactComponent as ZhCnSvg } from '../assets/header/zh_CN.svg';
 import { ReactComponent as EnUsSvg } from '../assets/header/en_US.svg';
@@ -57,7 +57,11 @@ export default function HeaderComponent() {
       })
     );
   };
-  const selectLanguageMenu = <Menu onClick={toggleLanguage} mode="vertical" items={menuItems} />;
+  const langDropdownMenuProps: MenuProps = {
+    onClick: toggleLanguage,
+    mode: 'vertical',
+    items: menuItems
+  };
   return (
     <Row className="header-content" align="middle" justify="space-between">
       <Col>logo ant site</Col>
@@ -65,7 +69,7 @@ export default function HeaderComponent() {
         <Space>
           <SiteSearch />
           <UseAvatar />
-          <Dropdown overlay={selectLanguageMenu} trigger={['click']}>
+          <Dropdown menu={langDropdownMenuProps} trigger={['click']}>
             <Button type="text" style={{ color: 'aliceblue', padding: 0 }}>
               {/* <LanguageSvg /> */}
               <GlobalOutlined />
