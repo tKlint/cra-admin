@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "https://tklint.github.io/cra-admin/static/css/main.7e829cea.css",
-    "main.js": "https://tklint.github.io/cra-admin/static/js/main.60ab0cc1.js",
+    "main.js": "https://tklint.github.io/cra-admin/static/js/main.1ac5db61.js",
     "static/js/255.154eb356.chunk.js": "https://tklint.github.io/cra-admin/static/js/255.154eb356.chunk.js",
-    "static/js/584.5fac6054.chunk.js": "https://tklint.github.io/cra-admin/static/js/584.5fac6054.chunk.js",
+    "static/js/584.9633ad18.chunk.js": "https://tklint.github.io/cra-admin/static/js/584.9633ad18.chunk.js",
     "static/js/323.76e3313d.chunk.js": "https://tklint.github.io/cra-admin/static/js/323.76e3313d.chunk.js",
     "static/css/767.9b1e4f6f.chunk.css": "https://tklint.github.io/cra-admin/static/css/767.9b1e4f6f.chunk.css",
     "static/js/767.42ef67a9.chunk.js": "https://tklint.github.io/cra-admin/static/js/767.42ef67a9.chunk.js",
@@ -21,9 +21,9 @@
     "static/media/zh_CN.svg": "https://tklint.github.io/cra-admin/static/media/zh_CN.452b844e2cd4456ca9df6a85805ba93c.svg",
     "index.html": "https://tklint.github.io/cra-admin/index.html",
     "main.7e829cea.css.map": "https://tklint.github.io/cra-admin/static/css/main.7e829cea.css.map",
-    "main.60ab0cc1.js.map": "https://tklint.github.io/cra-admin/static/js/main.60ab0cc1.js.map",
+    "main.1ac5db61.js.map": "https://tklint.github.io/cra-admin/static/js/main.1ac5db61.js.map",
     "255.154eb356.chunk.js.map": "https://tklint.github.io/cra-admin/static/js/255.154eb356.chunk.js.map",
-    "584.5fac6054.chunk.js.map": "https://tklint.github.io/cra-admin/static/js/584.5fac6054.chunk.js.map",
+    "584.9633ad18.chunk.js.map": "https://tklint.github.io/cra-admin/static/js/584.9633ad18.chunk.js.map",
     "323.76e3313d.chunk.js.map": "https://tklint.github.io/cra-admin/static/js/323.76e3313d.chunk.js.map",
     "767.9b1e4f6f.chunk.css.map": "https://tklint.github.io/cra-admin/static/css/767.9b1e4f6f.chunk.css.map",
     "767.42ef67a9.chunk.js.map": "https://tklint.github.io/cra-admin/static/js/767.42ef67a9.chunk.js.map",
@@ -40,6 +40,6 @@
   },
   "entrypoints": [
     "static/css/main.7e829cea.css",
-    "static/js/main.60ab0cc1.js"
+    "static/js/main.1ac5db61.js"
   ]
 }
