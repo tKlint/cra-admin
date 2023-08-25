@@ -1,31 +1,30 @@
-import { MenuProps } from 'antd';
 import React from 'react';
 import { IRoutes } from '../routes/typing';
 import WrapperRouteComponent from '../routes/WrapperRouteComponent';
 
-export const generateRoutes = (menus: API.RoutesResponse[], parentPath = '') => {
+export const generateRoutes = (menus: UserRouterWithChildren[], parentPath = '') => {
   return menus.map(menus => {
-    const { router, component, name, index, children } = menus;
+    const { path, component, name, index, children } = menus;
     const pathLinked = parentPath ? `${parentPath}/` : parentPath;
     const routeProps: IRoutes = {
-      path: router,
+      path: path,
       name,
       index: index || undefined,
-      children: children ? generateRoutes(children, `${pathLinked}${router}`) : undefined,
+      children: children ? generateRoutes(children, `${pathLinked}${path}`) : undefined,
       element: component
     };
     if (component) {
-      const Element = React.lazy(() => import(`../pages${router}`));
+      const Element = React.lazy(() => import(`../pages${component}`));
       routeProps.element = <WrapperRouteComponent element={<Element />} auth={false} />;
     }
     return routeProps;
   });
 };
-export const generateMenus = (menus: API.RoutesResponse[], parentPath = '', parentName = ''): MenuProps['items'] => {
+export const generateMenus = (menus: UserRouterWithChildren[], parentPath = '', parentName = ''): UserMenu[] => {
   return menus
     .filter(item => item.isShown)
     .map(item => {
-      const currentPath = `${parentPath}${item.router}`;
+      const currentPath = `${parentPath}${item.path}`;
       const currentName = `${parentName}${item.name}`;
       return {
         key: currentPath,

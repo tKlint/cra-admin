@@ -1,7 +1,6 @@
 import { Button, ConfigProvider, Popover } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { BgColorsOutlined } from '@ant-design/icons';
-import { SimpleObject } from '../types/global';
 import { SketchPicker } from 'react-color';
 import { useState } from 'react';
 import { getThemesConfig } from '@/utils/getUserConfig';

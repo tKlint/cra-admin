@@ -2,11 +2,11 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
   app.use(
-    '/gateway/admin/',
+    '^/api',
     createProxyMiddleware({
-      target: 'https://bwecomonitorfrontdev.bravowhale-uat.com/',
+      target: 'http://127.0.0.1:80/',
       changeOrigin: true,
-      pathRewrite: { '^/api': '' }
+      pathRewrite: { '': '' }
     })
   );
 };

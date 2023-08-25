@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
-import { Menu, MenuProps } from 'antd';
+import { useMemo } from 'react';
+import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useLocale } from '../locales';
 import { useAppSelector } from '../store/hooks';
-import { MenuItemType } from 'antd/lib/menu/hooks/useItems';
 import './style.less';
+import { clone } from 'lodash';
 
 type IMenuProps = {
   onChange?: (path: string) => void;
@@ -18,31 +18,38 @@ export default function IMenu(props: IMenuProps) {
   const defaultSelectedKeys = useMemo(() => {
     const locationPathname = location.hash.replace('#', '');
     if (!locationPathname || locationPathname === '/') {
-      return '/dashboard';
+      return user.routes[0]?.path;
     }
     return locationPathname;
   }, []);
 
-  console.log(defaultSelectedKeys, 'defaultSelectedKeys');
-  const creatMenuItem = (): MenuProps['items'] => {
-    return user.menuItems?.map(item => {
-      const intlLabel = formatMessage({
-        id: `menu.${(item as MenuItemType)?.label as string}`
-      });
+  const creatMenuItem = (menusData: typeof user.menuItems): typeof user.menuItems => {
+    return menusData?.map(menu => {
       return {
-        disabled: false,
-        key: item?.key || '',
-        title: intlLabel,
-        label: intlLabel
+        ...menu,
+        label: menu.label
+          ? formatMessage({
+              id: `menu.${menu?.label}`
+            })
+          : 'UNSET',
+        children: menu.children ? creatMenuItem(menu.children) : void 0
       };
     });
   };
+  const menuItemProp = useMemo(() => {
+    if (!user.menuItems) {
+      return [];
+    }
+    const menuItem = clone(user.menuItems);
+    return creatMenuItem(menuItem);
+  }, [user]);
+
   return (
     <Menu
       mode="inline"
       defaultSelectedKeys={[defaultSelectedKeys]}
       style={{ height: '100%', borderRight: 0 }}
-      items={creatMenuItem()}
+      items={menuItemProp}
       defaultValue={defaultSelectedKeys}
       onSelect={e => {
         navigator(e.key);

@@ -6,6 +6,12 @@ import { afterLogin } from '../store/user';
 import { cloneDeep } from 'lodash';
 import { generateRoutes } from '../store/generateRoutes';
 import SuspendFallbackLoading from '../layout/SuspendFallbackLoading';
+import SignUp from '@/pages/signUp';
+
+export enum FREE_ROUTER_PATH {
+  LOGIN = '/login',
+  SIGN_UP = '/singUp'
+}
 
 const NotFound = React.lazy(() => import('../pages/404'));
 const Login = React.lazy(() => import('../pages/login'));
@@ -13,8 +19,12 @@ const Layout = React.lazy(() => import('../layout'));
 
 const defaultRouters: RouteObject[] = [
   {
-    path: '/login',
+    path: FREE_ROUTER_PATH.LOGIN,
     element: <WrapperRouteComponent auth={false} element={<Login />} />
+  },
+  {
+    path: FREE_ROUTER_PATH.SIGN_UP,
+    element: <WrapperRouteComponent auth={false} element={<SignUp />} />
   },
   {
     path: '/',
@@ -30,17 +40,20 @@ const notFoundPage = [
   }
 ];
 
+const ROUTER_PATH_WHITE_LIST = [FREE_ROUTER_PATH.LOGIN, FREE_ROUTER_PATH.SIGN_UP];
+
 export default function DynamicRouter() {
   const user = useAppSelector(state => state.userReducer);
   const dispatch = useAppDispatch();
   const { pathname, state } = useLocation();
   const { token, routes } = user;
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (!token && pathname !== '/login') {
-      return navigate({ pathname: 'login' }, { replace: true, state: { from: pathname } });
+    if (!token && !ROUTER_PATH_WHITE_LIST.includes(pathname as FREE_ROUTER_PATH)) {
+      return navigate({ pathname: FREE_ROUTER_PATH.LOGIN }, { replace: true, state: { from: pathname } });
     }
-    if (token && pathname === '/login') {
+    if (token && ROUTER_PATH_WHITE_LIST.includes(pathname as FREE_ROUTER_PATH)) {
       return navigate({ pathname: '/' });
     }
     if (token && !routes?.length) {

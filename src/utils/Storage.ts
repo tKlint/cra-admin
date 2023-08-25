@@ -1,5 +1,3 @@
-import { SimpleObject } from '../types/global';
-
 type StorageInstanceValueType<T> = {
   value: T;
   expire: number | null;

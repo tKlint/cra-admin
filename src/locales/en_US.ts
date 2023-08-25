@@ -10,7 +10,10 @@ const enUS = {
   'app.no-login': 'you need login',
   'app.login-tip': 'go to login',
   'menu.about': 'about',
-  'menu.dashboard': 'dashboard',
+  'menu.dashboard': 'Dashboard',
+  'menu.userMgmt': 'User Mgmt',
+  'menu.systemMgmt': 'System Management',
+  'menu.systemMgmt.menu': 'Menu Management',
   'layout.change-theme-color': 'change theme color'
 };
 export default enUS;

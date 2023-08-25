@@ -1,7 +1,6 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
 import { useState } from 'react';
-import { SimpleObject } from '../types/global';
 const SiteSearch: React.FC<SimpleObject> = () => {
   const [searchHidden, setSearchHidden] = useState(true);
   const switchSearchHidden = () => {

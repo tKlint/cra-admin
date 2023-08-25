@@ -11,6 +11,9 @@ const zhCN = {
   'app.login-tip': '去登录',
   'menu.about': '关于',
   'menu.dashboard': '仪表盘',
-  'layout.change-theme-color': '更换主题色'
+  'menu.userMgmt': '用户管理',
+  'layout.change-theme-color': '更换主题色',
+  'menu.systemMgmt': '系统管理',
+  'menu.systemMgmt.menu': '菜单管理'
 };
 export default zhCN;

@@ -9,7 +9,7 @@ const fs =  require('fs');
 ---------------------------------------------*/
 
 const scriptCWD = process.env.INIT_CWD;
-const projectCWD = process.env.npm_config_local_prefix + '/src/pages';
+const projectCWD = process.env.PWD + '/src/pages';
 const pathArg = process.argv[2];
 const compoentFileType = process.argv[3] || '.tsx';
 
@@ -24,7 +24,7 @@ function toUpperCase(str, index) {
 }
 const template = `import React from 'react';
 
-import './style.less';
+import './style.module.less';
 
 type IProps = {}
 const $compoentName: React.FC<IProps> = (props) => {
@@ -53,7 +53,7 @@ let compoentPath = projectCWD + '/' + pathArg + compoentFileType;
 if (scriptCWD.startsWith(projectCWD)) {
   compoentPath = scriptCWD + '/' + pathArg + compoentFileType;
 }
-const stylePath = compoentPath.slice(0, compoentPath.lastIndexOf('/')) + '/style.less';
+const stylePath = compoentPath.slice(0, compoentPath.lastIndexOf('/')) + '/style.module.less';
 fs.writeFileSync(compoentPath, output);
 fs.writeFileSync(stylePath, styleOutput);
 process.exit(0);

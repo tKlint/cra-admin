@@ -1,6 +1,5 @@
 import { Avatar } from 'antd';
 import React from 'react';
-import { SimpleObject } from '../types/global';
 import { useAppSelector } from '@/store/hooks';
 
 const UseAvatar: React.FC<SimpleObject> = () => {
