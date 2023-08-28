@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkcra=self.webpackChunkcra||[]).push([[289],{43289:function(n,u,e){e.r(u),e.d(u,{default:function(){return c}});e(72791);var r=e(80184);function c(){return(0,r.jsx)("div",{children:"MenuMgmt"})}}}]);
+//# sourceMappingURL=289.ba487110.chunk.js.map
