@@ -30,6 +30,7 @@ export const generateMenus = (menus: UserRouterWithChildren[], parentPath = '', 
         key: currentPath,
         // icon: React.createElement(icon),
         label: currentName,
+        icon: item.icon ?? void 0,
         children: item.children ? generateMenus(item.children, `${currentPath}/`, `${currentName}.`) : null
       };
     });

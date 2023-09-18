@@ -9,6 +9,27 @@ import { clone } from 'lodash';
 type IMenuProps = {
   onChange?: (path: string) => void;
 };
+type MenuItems = Omit<UserMenu, 'label'> & {
+  label?: React.ReactNode;
+  icon?: React.ReactNode;
+};
+
+type MenuIconProps = {
+  iconName?: string;
+};
+
+const MenuIcon = ({ iconName }: MenuIconProps) => {
+  if (!iconName) {
+    return null;
+  }
+  return (
+    <span role="img" className="menu-icon ant-menu-item-icon">
+      <svg className="icon" aria-hidden="true">
+        <use xlinkHref={`#${iconName}`}></use>
+      </svg>
+    </span>
+  );
+};
 
 export default function IMenu(props: IMenuProps) {
   const { onChange } = props;
@@ -23,17 +44,17 @@ export default function IMenu(props: IMenuProps) {
     return locationPathname;
   }, []);
 
-  const creatMenuItem = (menusData: typeof user.menuItems): typeof user.menuItems => {
-    return menusData?.map(menu => {
+  const creatMenuItem = (menusData: typeof user.menuItems): MenuItems[] => {
+    if (!menusData) {
+      return [];
+    }
+    return menusData.map(menu => {
       return {
         ...menu,
-        label: menu.label
-          ? formatMessage({
-              id: `menu.${menu?.label}`
-            })
-          : 'UNSET',
+        icon: <MenuIcon iconName={menu.icon} />,
+        label: formatMessage({ id: `menu.${menu?.label}` }),
         children: menu.children ? creatMenuItem(menu.children) : void 0
-      };
+      } as MenuItems;
     });
   };
   const menuItemProp = useMemo(() => {
@@ -43,7 +64,6 @@ export default function IMenu(props: IMenuProps) {
     const menuItem = clone(user.menuItems);
     return creatMenuItem(menuItem);
   }, [user]);
-
   return (
     <Menu
       mode="inline"

@@ -1,5 +1,3 @@
-import type { RouteObject } from 'react-router-dom';
-
 export interface IRoutes {
   name?: string;
   caseSensitive?: boolean;

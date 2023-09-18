@@ -1,4 +1,4 @@
-import { useTableMergerer } from '@/utils/tableMergerer';
+import { useTableMergerer } from '@/hooks';
 import { Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import React, { useEffect, useState } from 'react';

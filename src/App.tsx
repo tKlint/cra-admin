@@ -12,7 +12,7 @@ import { getThemesConfig } from './utils/getUserConfig';
 
 import './App.less';
 import './App.css';
-import { useVersionUpdater } from './utils/versionUpdater';
+import { useVersionUpdater } from '@/hooks';
 
 function App() {
   const { locale } = useAppSelector(store => store.localesReducer);

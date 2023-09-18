@@ -35,4 +35,10 @@ declare type UserMenu = {
   label: string;
   key: string;
   children?: UserMenu[] | null;
+  icon?: string;
+};
+
+declare type ResponseWithPagination<T> = {
+  total: number;
+  data: T[];
 };

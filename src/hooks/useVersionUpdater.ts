@@ -1,4 +1,4 @@
-import Poller from './poller';
+import Poller from '@/utils/poller';
 import { useRef } from 'react';
 
 type EventPool = {

@@ -2,8 +2,12 @@ import React, { FC, Suspense } from 'react';
 import { Outlet } from 'react-router';
 
 import SuspendFallbackLoading from './SuspendFallbackLoading';
+import { useAppSelector } from '@/store/hooks';
+import NotFound from '@/pages/404';
 
 export const RouteView: FC = () => {
+  const { routes } = useAppSelector(store => store.userReducer);
+  console.log(routes, 'routes');
   return (
     <Suspense
       fallback={
@@ -13,7 +17,7 @@ export const RouteView: FC = () => {
         />
       }
     >
-      <Outlet />
+      {routes.length > 0 ? <Outlet /> : <NotFound />}
     </Suspense>
   );
 };

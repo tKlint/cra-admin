@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-function useDomSizeAndScroll() {
+export default function useDomScroll() {
   const [domSize, setDomSize] = useState({
     width: 0,
     height: 0,
@@ -49,40 +49,3 @@ function useDomSizeAndScroll() {
 
   return { domSize, scrollPosition, targetRef };
 }
-
-const UserMgmt: React.FC = () => {
-  const { domSize, scrollPosition, targetRef } = useDomSizeAndScroll();
-  const list = useMemo(() => {
-    return new Array(30).fill(true).map((_, idx) => {
-      return <li key={idx}>{idx}</li>;
-    });
-  }, []);
-
-  return (
-    <div className="page-UserMgmt">
-      <p>{scrollPosition.y + domSize.clientHeight === domSize.height && '到尾了'}</p>
-      <p>{scrollPosition.y === 0 && '到头了'}</p>
-
-      <div>
-        {domSize.height},{domSize.width},{domSize.clientHeight}
-      </div>
-      <div>
-        {scrollPosition.x}, {scrollPosition.y}
-      </div>
-      <div
-        ref={targetRef}
-        style={{
-          width: 200,
-          height: 100,
-          overflow: 'scroll'
-        }}
-      >
-        {/* <ul style={{ listStyle: 'none' }} className="mb-0"> */}
-        {list}
-        {/* </ul> */}
-      </div>
-    </div>
-  );
-};
-
-export default UserMgmt;
