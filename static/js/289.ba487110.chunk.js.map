@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/289.ba487110.chunk.js","mappings":"qKAEe,SAASA,IACtB,OAAOC,EAAAA,EAAAA,KAAA,OAAAC,SAAK,YACd,C","sources":["pages/systemMgmt/menu/index.tsx"],"sourcesContent":["import React from 'react';\n\nexport default function MenuMgmt() {\n  return <div>MenuMgmt</div>;\n}\n"],"names":["MenuMgmt","_jsx","children"],"sourceRoot":""}
