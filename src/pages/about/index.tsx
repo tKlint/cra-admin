@@ -61,7 +61,9 @@ export default function About() {
           <Input />
         </Form.Item>
         <FormUpload name="file" label="文件" formItemProps={formItemProps} uploadProps={uploadProps}>
-          {loading => <Button loading={loading}>上传文件</Button>}
+          <Button type="primary" size="large">
+            上传文件
+          </Button>
         </FormUpload>
         <Form.Item>
           <Button htmlType="submit">提交</Button>

@@ -11,3 +11,7 @@ svg{
   fill: currentColor;
   overflow: hidden;
 }
+
+img {
+  display: unset;
+}

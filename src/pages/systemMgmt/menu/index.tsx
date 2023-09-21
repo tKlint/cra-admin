@@ -1,6 +1,5 @@
 import api from '@/service';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { Button } from 'antd';
 import React from 'react';
 
 export default function MenuMgmt() {

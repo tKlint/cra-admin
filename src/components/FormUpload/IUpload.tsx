@@ -1,9 +1,9 @@
 import { createFileBase64 } from '@/utils/tools';
 import { Progress, Upload, UploadFile, UploadProps } from 'antd';
 import { ItemRender } from 'antd/lib/upload/interface';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { cloneElement, useEffect, useMemo, useRef, useState } from 'react';
 
-type RenderProps = (loadding: boolean) => React.ReactNode;
+type RenderProps = (loading: boolean) => React.ReactNode;
 
 type LikeFile = {
   uid: string;
@@ -20,7 +20,7 @@ type UploadInfo = {
 
 export type IUploadProps = {
   showProgress?: boolean;
-  children: React.ReactNode | RenderProps;
+  children: React.ReactElement | React.ReactElement[] | RenderProps;
   value?: IFile[];
   onChange?: (fileList: IFile[]) => void;
   uploadProps?: Omit<UploadProps, 'value' | 'onChange'>;
@@ -34,7 +34,7 @@ export function isRenderProps(children: unknown): children is RenderProps {
 
 const IUpload: React.FC<IUploadProps> = props => {
   const { value, children, uploadProps = {}, onChange, beforeChange, showProgress, templateRender } = props;
-  const [loadding, setLoadding] = useState(false);
+  const [loading, setloading] = useState(false);
   const [files, setFiles] = useState<IFile[]>();
   const filesData = useRef(files);
   /**
@@ -75,13 +75,13 @@ const IUpload: React.FC<IUploadProps> = props => {
       await setFileBase64(file.uid, fileList);
     }
     if (beforeChange) {
-      setLoadding(true);
+      setloading(true);
       try {
         await beforeChange({ file, fileList }, updateProgress);
       } catch (error) {
         hasErr = true;
       } finally {
-        setLoadding(false);
+        setloading(false);
       }
     }
     setFileStatus(file.uid, fileList, hasErr ? 'error' : 'done');
@@ -136,15 +136,24 @@ const IUpload: React.FC<IUploadProps> = props => {
   }, [value]);
   const renderChildren = useMemo(() => {
     if (isRenderProps(children)) {
-      return children(loadding);
+      return children(loading);
     }
-    return children;
-  }, [children, loadding]);
+
+    const fstChildren = Array.isArray(children) ? children[0] : children;
+    const { ...restProps } = fstChildren.props;
+    /**
+     * 复制children, 添加loading
+     */
+    return cloneElement(fstChildren, {
+      ...restProps,
+      loading: loading
+    });
+  }, [children, loading]);
   return (
     <Upload
       fileList={files}
       beforeUpload={beforUploadHandle}
-      disabled={loadding}
+      disabled={loading}
       onChange={fileChangeHandle}
       {...uploadProps}
       itemRender={
